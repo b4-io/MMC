@@ -80,14 +80,14 @@ fn mmc(repeticiones: i32, tabla: bool) {
         let t9 = t9_distribtion.sample(&mut rng);
         let t10 = t10_distribtion.sample(&mut rng);
 
-        let mut t_totales: Vec<f32> = Vec::new();
+        let mut t_totales: Vec<f64> = Vec::new();
 
         // Calculo tiempos totales por tarea
         t_totales.push(t1);
         t_totales.push(t1 + t2);
         t_totales.push(t1 + t3);
-        t_totales.push(f32::max(t_totales[1], t_totales[2]) + t4);
-        t_totales.push(f32::max(t_totales[1], t_totales[2]) + t5);
+        t_totales.push(f64::max(t_totales[1], t_totales[2]) + t4);
+        t_totales.push(f64::max(t_totales[1], t_totales[2]) + t5);
         t_totales.push(t3 + t6);
         t_totales.push(t3 + t7);
         t_totales.push(
@@ -108,7 +108,7 @@ fn mmc(repeticiones: i32, tabla: bool) {
         v += tiempo_total.powi(2);
     }
 
-    let f_rep = repeticiones as f32;
+    let f_rep = repeticiones as f64;
     let x = x / f_rep;
     let v = v / (f_rep * (f_rep - 1.0)) - (x.powi(2) / (f_rep - 1.0));
 
@@ -133,6 +133,6 @@ fn mmc(repeticiones: i32, tabla: bool) {
     );
 }
 
-fn get_max_tiempo<'a>(tiempos: &'a Vec<f32>) -> &'a f32 {
+fn get_max_tiempo<'a>(tiempos: &'a Vec<f64>) -> &'a f64 {
     tiempos.iter().max_by(|a, b| a.total_cmp(b)).unwrap()
 }
