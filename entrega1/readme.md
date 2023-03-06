@@ -1,9 +1,61 @@
-Reps: 10, Estimacion: 167.22716, Desviacion Estandar: 10.960449, Tiempo: 11.751µs
-Reps: 100, Estimacion: 167.70331, Desviacion Estandar: 1.0561218, Tiempo: 27.361µs
-Reps: 1000, Estimacion: 168.48552, Desviacion Estandar: 0.1081543, Tiempo: 286.716µs
-Reps: 10000, Estimacion: 168.3382, Desviacion Estandar: 0.010853291, Tiempo: 2.417367ms
-Reps: 100000, Estimacion: 168.37553, Desviacion Estandar: 0.0010923743, Tiempo: 24.180474ms
-Reps: 1000000, Estimacion: 168.34673, Desviacion Estandar: 0.00010791607, Tiempo: 213.569486ms
-Reps: 10000000, Estimacion: 156.35922, Desviacion Estandar: 0.0005212717, Tiempo: 2.206165241s
-Reps: 100000000, Estimacion: 42.949673, Desviacion Estandar: 0.000091504415, Tiempo: 22.212673147s
-Reps: 1000000000, Estimacion: 4.294967, Desviacion Estandar: 0.000001081065, Tiempo: 219.787962063s
+<table><thead><tr>
+                 <td>Repeticiones</td>
+                 <td>Estimacion</td>
+                 <td>Desviacion Estandar</td>
+                 <td>Tiempo</td>
+             </tr></thead><tbody>
+<tr>
+                 <td>10</td>
+                 <td>171.47034</td>
+                 <td>3.286621</td>
+                 <td>14.377µs</td>
+             </tr>
+<tr>
+                 <td>100</td>
+                 <td>168.17648</td>
+                 <td>1.2078247</td>
+                 <td>42.98µs</td>
+             </tr>
+<tr>
+                 <td>1000</td>
+                 <td>168.72672</td>
+                 <td>0.09700394</td>
+                 <td>406.139µs</td>
+             </tr>
+<tr>
+                 <td>10000</td>
+                 <td>168.27887</td>
+                 <td>0.010855675</td>
+                 <td>3.509278ms</td>
+             </tr>
+<tr>
+                 <td>100000</td>
+                 <td>168.33296</td>
+                 <td>0.0010976195</td>
+                 <td>33.765299ms</td>
+             </tr>
+<tr>
+                 <td>1000000</td>
+                 <td>168.35167</td>
+                 <td>0.00011135079</td>
+                 <td>197.14007ms</td>
+             </tr>
+<tr>
+                 <td>10000000</td>
+                 <td>156.35576</td>
+                 <td>0.00052141724</td>
+                 <td>1.945069993s</td>
+             </tr>
+<tr>
+                 <td>100000000</td>
+                 <td>42.949673</td>
+                 <td>0.000091504415</td>
+                 <td>19.301633176s</td>
+             </tr>
+<tr>
+                 <td>1000000000</td>
+                 <td>4.294967</td>
+                 <td>0.000001081065</td>
+                 <td>210.283120085s</td>
+             </tr>
+</tbody></table>

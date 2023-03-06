@@ -8,26 +8,45 @@ struct Args {
     /// cantidad de replicaciones 'n' a realizar
     #[arg(short, long, default_value = "-1")]
     repeticiones: i32,
+
+    /// generar tabla de resultados
+    #[arg(short, long)]
+    tabla: bool,
 }
 
 fn main() {
     let args = Args::parse();
+    if args.tabla {
+        println!(
+            "<table><thead><tr>
+                 <td>Repeticiones</td>
+                 <td>Estimacion</td>
+                 <td>Desviacion Estandar</td>
+                 <td>Tiempo</td>
+             </tr></thead><tbody>"
+        );
+    }
+
     if args.repeticiones == -1 {
-        mmc(10);
-        mmc(100);
-        mmc(1000);
-        mmc(10000);
-        mmc(100000);
-        mmc(1000000);
-        mmc(10000000);
-        mmc(100000000);
-        mmc(1000000000);
+        mmc(10, args.tabla);
+        mmc(100, args.tabla);
+        mmc(1000, args.tabla);
+        mmc(10000, args.tabla);
+        mmc(100000, args.tabla);
+        mmc(1000000, args.tabla);
+        mmc(10000000, args.tabla);
+        mmc(100000000, args.tabla);
+        mmc(1000000000, args.tabla);
     } else {
-        mmc(args.repeticiones);
+        mmc(args.repeticiones, args.tabla);
+    }
+
+    if args.tabla {
+        println!("</tbody></table>");
     }
 }
 
-fn mmc(repeticiones: i32) {
+fn mmc(repeticiones: i32, tabla: bool) {
     let start = Instant::now();
 
     // Aplico metodo de montecarlo
@@ -94,6 +113,19 @@ fn mmc(repeticiones: i32) {
     let v = v / (f_rep * (f_rep - 1.0)) - (x.powi(2) / (f_rep - 1.0));
 
     let duration = start.elapsed();
+
+    if tabla {
+        println!(
+            "<tr>
+                 <td>{}</td>
+                 <td>{}</td>
+                 <td>{}</td>
+                 <td>{:?}</td>
+             </tr>",
+            repeticiones, x, v, duration
+        );
+        return;
+    }
 
     println!(
         "Reps: {}, Estimacion: {}, Desviacion Estandar: {}, Tiempo: {:?}",
