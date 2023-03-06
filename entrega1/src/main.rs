@@ -13,21 +13,21 @@ struct Args {
 fn main() {
     let args = Args::parse();
     if args.repeticiones == -1 {
-        MMC(10);
-        MMC(100);
-        MMC(1000);
-        MMC(10000);
-        MMC(100000);
-        MMC(1000000);
-        MMC(10000000);
-        MMC(100000000);
-        MMC(1000000000);
+        mmc(10);
+        mmc(100);
+        mmc(1000);
+        mmc(10000);
+        mmc(100000);
+        mmc(1000000);
+        mmc(10000000);
+        mmc(100000000);
+        mmc(1000000000);
     } else {
-        MMC(args.repeticiones);
+        mmc(args.repeticiones);
     }
 }
 
-fn MMC(repeticiones: i32) {
+fn mmc(repeticiones: i32) {
     let start = Instant::now();
 
     // Aplico metodo de montecarlo

@@ -1,0 +1,9 @@
+Reps: 10, Estimacion: 167.22716, Desviacion Estandar: 10.960449, Tiempo: 11.751µs
+Reps: 100, Estimacion: 167.70331, Desviacion Estandar: 1.0561218, Tiempo: 27.361µs
+Reps: 1000, Estimacion: 168.48552, Desviacion Estandar: 0.1081543, Tiempo: 286.716µs
+Reps: 10000, Estimacion: 168.3382, Desviacion Estandar: 0.010853291, Tiempo: 2.417367ms
+Reps: 100000, Estimacion: 168.37553, Desviacion Estandar: 0.0010923743, Tiempo: 24.180474ms
+Reps: 1000000, Estimacion: 168.34673, Desviacion Estandar: 0.00010791607, Tiempo: 213.569486ms
+Reps: 10000000, Estimacion: 156.35922, Desviacion Estandar: 0.0005212717, Tiempo: 2.206165241s
+Reps: 100000000, Estimacion: 42.949673, Desviacion Estandar: 0.000091504415, Tiempo: 22.212673147s
+Reps: 1000000000, Estimacion: 4.294967, Desviacion Estandar: 0.000001081065, Tiempo: 219.787962063s
