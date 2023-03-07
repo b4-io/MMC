@@ -88,8 +88,8 @@ fn mmc(repeticiones: i32, tabla: bool) {
         t_totales.push(t1 + t3);
         t_totales.push(f64::max(t_totales[1], t_totales[2]) + t4);
         t_totales.push(f64::max(t_totales[1], t_totales[2]) + t5);
-        t_totales.push(t3 + t6);
-        t_totales.push(t3 + t7);
+        t_totales.push(t_totales[2] + t6);
+        t_totales.push(t_totales[2] + t7);
         t_totales.push(
             get_max_tiempo(&vec![
                 t_totales[3],
