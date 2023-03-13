@@ -1,5 +1,5 @@
 use clap::Parser;
-use rand::distributions::*;
+use rand::{distributions::*, rngs::StdRng, SeedableRng};
 use std::time::Instant;
 
 #[derive(Parser, Debug)]
@@ -65,7 +65,8 @@ fn mmc(repeticiones: i32, tabla: bool) {
     let t9_distribtion = Uniform::new_inclusive(40.0, 60.0);
     let t10_distribtion = Uniform::new_inclusive(8.0, 16.0);
 
-    let mut rng = rand::thread_rng();
+    //let mut rng = rand::thread_rng();
+    let mut rng: StdRng = rand::SeedableRng::seed_from_u64(24242);
 
     for _ in 0..repeticiones {
         // Genero valores aleatorios
