@@ -1,5 +1,5 @@
 use clap::Parser;
-use rand::{distributions::*, rngs::StdRng, SeedableRng};
+use rand::{distributions::*, rngs::StdRng};
 use std::time::Instant;
 
 #[derive(Parser, Debug)]

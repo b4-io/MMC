@@ -1,4 +1,4 @@
-## Identificación: Sesión 2
+## Identificación: Sesión 2, Ejercicio 2.1
 ## Estudiante: Bruno De Simone, 4914555-0
 ## Problema:
 Se desea construir una casa, para eso hay diferentes tareas, con dependencias entre si, para las cuales se tiene estimado un rango de tiempo que pueden llegar a demorar en finalizar. Cuando todas hayan sido completadas la casa va a estar construida.
@@ -29,7 +29,7 @@ La única optimización realizada fue eliminar la dependencia de T10 a T7 ya que
 ### Lenguaje y Biblioteca
 La implementación del algoritmo fue hecha en el lenguaje [Rust](https://www.rust-lang.org/es), el mismo es un lenguaje de bajo nivel con velocidad comparable con C++ pero permite un manejo seguro de memoria. Para la generación de las variables aleatorios se utilizo la biblioteca [rand](https://docs.rs/rand/latest/rand/), se utiliza la feature std_rng la cual permite crear un generador pseudorandom number generator (PRNG) seguro, determinista con una seed representada por un numero natural de 64bits. El algoritmo utilizado por el generador es ChaCha12.
 
-## Resultados computacionales
+## Resultado computacional
 ### Plataforma:
 Las pruebas fueros realizadas en una computadora con:
 <ul>
@@ -101,6 +101,8 @@ Las pruebas fueros realizadas en una computadora con:
                  <td>84.659053474s</td>
              </tr>
 </tbody></table>
+
+Se ve observa que la estimación para la finalización de la obra es 168.565, ademas se ve como a medida que el numero de repeticiones se va multiplicando por 10 la desviación estándar baja en razón de raíz cuadrada de 10 y el tiempo aumenta en razón de 10 ya que es un algoritmo de orden n (lineal)
 
 ### Ejecución
 el comando de ejecución para el binario compilado es:
