@@ -13,7 +13,7 @@ Se desea construir una casa, para eso hay diferentes tareas, con dependencias en
 	<li>T8 - pintura - tiempo aleatorio uniforme entre 30 y 50 hs.</li>
 	<li>T9 - revestimientos sanitarios - tiempo aleatorio uniforme entre 40 y 60 hs.</li>
 	<li>T10 - limpieza final - tiempo aleatorio uniforme entre 8 y 16 hs.</li>
-</u>
+</ul>
 
 ### Dependencias
 ![](./dependencies.svg)
