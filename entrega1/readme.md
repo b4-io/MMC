@@ -33,11 +33,13 @@ La implementación del algoritmo fue hecha en el lenguaje [Rust](https://www.rus
 ### Plataforma:
 Las pruebas fueros realizadas en una computadora con:
 <ul>
-<li>CPU: AMD Ryzen 1800x, 8 nucleos a 3.6 GHz</li>
+<li>CPU: AMD Ryzen 7 1700x a 3.4 GHz</li>
 <li>RAM: 16 gb DDR4 3200mhz</li>
 <li>OS: PopOs (Ubuntu)</li>
 <li>Semilla: 24242</li>
 </ul>
+
+![](./../pc.png)
 
 ### Resultados
 <table><thead><tr>
