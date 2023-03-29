@@ -48,7 +48,10 @@ fn mmc(repeticiones: i32) {
         let x = unif_distribution.sample(&mut rng);
         let y = unif_distribution.sample(&mut rng);
 
+        // Obtengo valor de la funcion en el punto
         let height = mountain_function(x, y);
+
+        // Actualizo los acumuladores
         if j > 1 {
             t += (1.0 - 1.0 / j as f32) * (height - s / (j as f32 - 1.0)).powi(2);
         }
@@ -56,9 +59,14 @@ fn mmc(repeticiones: i32) {
     }
 
     let f_rep = repeticiones as f32;
+
+    // Estimacion
     let s_lebesgue = s / f_rep;
+    // Varianza puntual de la funcion
     let v = t / (f_rep - 1.0);
+    // Varianza de la estimacion
     let v_lebesgue = v / f_rep;
+
     let intevalo = (
         s_lebesgue - n.inverse_cdf(0.975) as f32 * (v / f_rep).sqrt(),
         s_lebesgue + n.inverse_cdf(0.975) as f32 * (v / f_rep).sqrt(),
@@ -66,43 +74,51 @@ fn mmc(repeticiones: i32) {
 
     let duration = start.elapsed();
     println!(
-        "| Estimacion | Varianza | Intervalo | Tiempo | Repeticiones |
-        |----|----|----|----|----|
-        | {} | {} | [{}, {}] | {:?} | {} |",
-        s_lebesgue, v_lebesgue, intevalo.0, intevalo.1, duration, repeticiones
+        "| Semilla | Estimacion | Varianza | Intervalo | Tiempo | Repeticiones |
+       |----|----|----|----|----|----|
+        | {} | {} | {} | [{}, {}] | {:?} | {} |",
+        24242, s_lebesgue, v_lebesgue, intevalo.0, intevalo.1, duration, repeticiones
     );
     let n_n = (n.inverse_cdf(0.975) as f32).powi(2) * v / 0.001_f32.powi(2);
 
-    rng = rand::SeedableRng::seed_from_u64(23984238648);
+    for i in 1..=10 {
+        rng = rand::SeedableRng::seed_from_u64(23984238648 + i * 16);
 
-    // Aplico metodo de montecarlo
-    let mut s = 0.0;
-    let mut t = 0.0;
+        // Aplico metodo de montecarlo
+        let mut s = 0.0;
+        let mut t = 0.0;
 
-    let start = Instant::now();
-    for j in 1..=n_n as i32 {
-        // Genero valores aleatorios
-        let x = unif_distribution.sample(&mut rng);
-        let y = unif_distribution.sample(&mut rng);
+        let start = Instant::now();
+        for j in 1..=n_n as i32 {
+            // Genero valores aleatorios
+            let x = unif_distribution.sample(&mut rng);
+            let y = unif_distribution.sample(&mut rng);
 
-        let height = mountain_function(x, y);
-        if j > 1 {
-            t += (1.0 - 1.0 / j as f32) * (height - s / (j as f32 - 1.0)).powi(2);
+            let height = mountain_function(x, y);
+            if j > 1 {
+                t += (1.0 - 1.0 / j as f32) * (height - s / (j as f32 - 1.0)).powi(2);
+            }
+            s += height;
         }
-        s += height;
+
+        let s_lebesgue = s / n_n;
+        let v = t / (n_n - 1.0);
+        let v_lebesgue = v / n_n;
+        let intevalo = (
+            s_lebesgue - n.inverse_cdf(0.975) as f32 * (v / n_n).sqrt(),
+            s_lebesgue + n.inverse_cdf(0.975) as f32 * (v / n_n).sqrt(),
+        );
+
+        let duration = start.elapsed();
+        println!(
+            "| {} | {} | {} | [{}, {}] | {:?} | {} |",
+            23984238648 + i * 16,
+            s_lebesgue,
+            v_lebesgue,
+            intevalo.0,
+            intevalo.1,
+            duration,
+            n_n
+        );
     }
-
-    let s_lebesgue = s / n_n;
-    let v = t / (n_n - 1.0);
-    let v_lebesgue = v / n_n;
-    let intevalo = (
-        s_lebesgue - n.inverse_cdf(0.975) as f32 * (v / n_n).sqrt(),
-        s_lebesgue + n.inverse_cdf(0.975) as f32 * (v / n_n).sqrt(),
-    );
-
-    let duration = start.elapsed();
-    println!(
-        "| {} | {} | [{}, {}] | {:?} | {} |",
-        s_lebesgue, v_lebesgue, intevalo.0, intevalo.1, duration, n_n
-    );
 }
