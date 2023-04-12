@@ -93,10 +93,11 @@ fn main() {
     let varianza = estimacion * (r - estimacion) / (f_rep - 1.0);
     let desviacion_estandar = varianza.sqrt();
 
+
+    // Agresti-Coull interval
     let n = Normal::new(0.0, 1.0).unwrap();
     let delta: f64 = 0.05;
 
-    // Agresti-Coull interval
     let z = n.inverse_cdf(1.0 - delta / 2.0) as f32;
     let z_2 = z.powi(2);
     let n_ = f_rep + z_2;
