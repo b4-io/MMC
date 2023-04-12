@@ -1,4 +1,5 @@
 use clap::{command, Parser};
+use statrs::distribution::{ContinuousCDF, Normal};
 use std::time::Instant;
 
 use rand::{distributions::Uniform, prelude::Distribution, rngs::StdRng};
@@ -17,23 +18,10 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    let uniform_dist = Uniform::new_inclusive(0.0, 4.0);
+    let uniform_dist = Uniform::new_inclusive(0, 3);
 
     let repeticiones = args.repeticiones;
     let restricciones = args.restricciones;
-
-    // let Estudiantes: HashMap<&str, Vec<&str>> = HashMap::from([
-    //     ("Maria", vec!["Espanol", "Ingles"]),
-    //     ("Sophie", vec!["Frances", "Ingles"]),
-    //     ("Liliana", vec!["Espanol", "Portugues"]),
-    //     ("Lucia", vec!["Ingles", "Portugues"]),
-    //     ("Monique", vec!["Frances"]),
-    //     ("Rodrigo", vec!["Espanol", "Ingles", "Frances"]),
-    //     ("John", vec!["Ingles"]),
-    //     ("Neymar", vec!["Ingles", "Portugues"]),
-    //     ("Jaque", vec!["Frances", "Portugues"]),
-    //     ("Juan", vec!["Espanol"]),
-    // ]);
 
     let estudiantes: Vec<Vec<&str>> = vec![
         /*Maria*/ vec!["Espanol", "Ingles"],
@@ -47,13 +35,6 @@ fn main() {
         /*Jauqe*/ vec!["Frances", "Portugues"],
         /*Juan*/ vec!["Espanol"],
     ];
-
-    // let Profesores: HashMap<&str, Vec<&str>> = HashMap::from([
-    //     ("Gerard", vec!["Frances", "Ingles"]),
-    //     ("Tom", vec!["Espanol", "Ingles", "Frances"]),
-    //     ("Luciana", vec!["Ingles", "Portugues"]),
-    //     ("Silvia", vec!["Espanol", "Frances"]),
-    // ]);
 
     let profesores: Vec<Vec<&str>> = vec![
         /*Tom*/ vec!["Espanol", "Ingles", "Frances"],
@@ -112,10 +93,26 @@ fn main() {
     let varianza = estimacion * (r - estimacion) / (f_rep - 1.0);
     let desviacion_estandar = varianza.sqrt();
 
+    let n = Normal::new(0.0, 1.0).unwrap();
+    let delta: f64 = 0.05;
+
+    // Agresti-Coull interval
+    let z = n.inverse_cdf(1.0 - delta / 2.0) as f32;
+    let z_2 = z.powi(2);
+    let n_ = f_rep + z_2;
+    let x_ = x + z_2 / 2.0;
+    let p_ = x_ / n_;
+    let q_ = 1.0 - p_;
+
+    let interval = (
+        r * (p_ - z * (p_ * q_).sqrt() * n_.powf(-0.5)),
+        r * (p_ + z * (p_ * q_).sqrt() * n_.powf(-0.5)),
+    );
+
     let duration = start.elapsed();
 
     println!(
-        "Estimacion: {}, Varianza: {}, Desviacion Estandar: {}, Tiempo: {:?}",
-        estimacion, varianza, desviacion_estandar, duration
+        "Estimacion: {}, Varianza: {}, Desviacion Estandar: {}, Intervalo: ({} {}), Tiempo: {:?}",
+        estimacion, varianza, desviacion_estandar, interval.0, interval.1, duration
     );
 }
