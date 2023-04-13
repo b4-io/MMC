@@ -1,4 +1,4 @@
-# I. Unidad 2 - Sesión 7 -  Ejercicio 1
+# I. Unidad 3 - Sesión 7 -  Ejercicio 1
 
 # II. Trabajo Individual.
 
