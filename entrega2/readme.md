@@ -184,10 +184,11 @@ La estimación del volumen de la hiperesfera es bastante similar al valor analí
 ### Ejecución
 el comando de ejecución para el binario compilado es:
 ```bash
-Usage: entrega4 [OPTIONS]
+Usage: entrega2 [OPTIONS] --ejercicio <EJERCICIO>
 
 Options:
   -n, --repeticiones <REPETICIONES>  cantidad de replicaciones 'n' a realizar [default: 1000]
-      --r                            agrega restricciones de parte c
+  -e, --ejercicio <EJERCICIO>        ejercicio a ejecutar (1 o 2)
+      --nr                           eliminar (no) restricciones
   -h, --help                         Print help
 ```
