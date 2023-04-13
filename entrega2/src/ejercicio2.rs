@@ -4,6 +4,7 @@ pub fn ejercicio2() {
     let n = Normal::new(0.0, 1.0).unwrap();
     let delta: Vec<f64> = vec![0.001, 0.01, 0.05];
     let epsilon: f64 = 0.01;
+
     // Chebyshev worst case
     let mut chebyshev = vec![];
     for i in 0..delta.len() {
