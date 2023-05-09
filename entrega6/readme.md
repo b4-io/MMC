@@ -1,4 +1,4 @@
-# I. Unidad 2 - Sesión 6 -  Ejercicio 6.1
+# I. Unidad 4 - Sesión 11 -  Ejercicio 11.1
 
 # II. Trabajo Individual.
 
@@ -10,20 +10,40 @@ Problema: se idealiza una montaña como un cono inscrito en una región cuadrada
 ```
 - **Parte a**: escribir un programa para calcular el volumen por Monte Carlo. Realizar 10^6 replicaciones y estimar el valor de ζ y el error cometido (con nivel de confianza 0.95), utilizando como criterio la aproximación normal
 
-- **Parte b**: en base al valor estimado en la parte a, calcular el número de replicaciones necesario para obtener un error absoluto menor a 10^−3 (con nivel de confianza 0.95). 
-
-- **Parte c**: realizar esa cantidad de replicaciones y estimar ζ y su intervalo de confianza. 
-
 # IV. Descripción de la Solución
 
 ## Parte a)
-La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña.
+La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña. 
+
+Ademas de esto se modifico el algoritmo utilizado en el ejercicio 6.1 para generar unicamente puntos dentro del circulo de la montana.
+
+```rust
+// nueva funcion para generar puntos aleatorios dentro del circulo
+fn generar_punto_en_circulo(
+    unif_distribution: Uniform<f32>,
+    normal_distribution: Normal,
+    rng: &mut StdRng,
+) -> (f32, f32) {
+    let r = unif_distribution.sample(rng).sqrt();
+    let z1 = normal_distribution.sample(rng) as f32;
+    let z2 = normal_distribution.sample(rng) as f32;
+
+    let x1 = ((r * z1 * RADIUS) / (z1.powi(2) + z2.powi(2)).sqrt()) + CENTER.0;
+    let x2 = ((r * z2 * RADIUS) / (z1.powi(2) + z2.powi(2)).sqrt()) + CENTER.1;
+
+    (x1, x2)
+}
+```
 
 ```rust
 for j in 1..=repeticiones {
     // Genero valores aleatorios
+    --- antes
     let x = unif_distribution.sample(&mut rng);
     let y = unif_distribution.sample(&mut rng);
+    ---
+    let (x, y) = generar_punto_en_circulo(unif_distribution, normal_distribution, &mut rng);
+    --- despues
 
     // Obtener valor de la función en el punto
     let height = mountain_function(x, y);
@@ -38,7 +58,7 @@ for j in 1..=repeticiones {
 let f_rep = repeticiones as f32;
 
 // Estimacion
-let s_lebesgue = s / f_rep;
+let s_lebesgue = (s / f_rep) * area_circulo;
 // Varianza puntual de la función
 let v = t / (f_rep - 1.0);
 // Varianza de la estimación
@@ -52,18 +72,6 @@ let intervalo = (
     s_lebesgue + n.inverse_cdf(0.975) as f32 * (v / f_rep).sqrt(),
 );
 ```
-
-## Parte b)
-Para obtener el cálculo del mínimo número de repeticiones que garanticen 95% de confianza con cota de error 0.001 según la aproximación normal se realizó el siguiente cálculo. Para realizar el cálculo de necesita la varianza puntual de la función obtenida en la parte a.
-
-```rust
-//(normal inversa de 0.975)^2 * varianza puntual de la función / cota de error^2
-let n_n = (n.inverse_cdf(0.975) as f32).powi(2) * v / 0.001_f32.powi(2);
-```
-
-## Parte c)
-Para esta parte se ejecutó código prácticamente igual al de la parte a pero con el nuevo número de repeticiones y semillas distintas.
-
 # V. Resultados Computacionales
 
 Las pruebas fueron realizadas en una computadora con:
@@ -78,39 +86,19 @@ Las pruebas fueron realizadas en una computadora con:
 
 ## Parte a)
 
-| Semilla | Estimación | Varianza | Intervalo | Tiempo | Repeticiones |
+| Ej | Semilla | Estimación | Varianza | Intervalo | Tiempo |
        |----|----|----|----|----|----|
-| 24242 | 1.3385398 | 0.0000035470912 | [1.3348485, 1.3422312] | 32.021715ms | 1000000 |
+| 6.1 | 24242 | 1.3385398 | 0.0000035470912 | [1.3348485, 1.3422312] | 32.021715ms |
+| 11.1 | 24242 | 1.3409284 | 0.0000035559813 | [1.3372325, 1.3446244] | 67.496965ms |
 
-## Parte b)
-|  Epsilon  |    Delta    |    n_N  |
-|:---------:|:-----------:|:---------:|
-| 0.0001    | 0.05        | 184443973 |
-
-
-## Parte c)
-
-| Semilla | Estimación | Varianza | Intervalo | Tiempo | Repeticiones |
-       |----|----|----|----|----|----|
-| 23984238664 | 1.3363181 | 0.0000002407381 | [1.3353565, 1.3372798] | 258.84243ms | 13626005 |
-| 23984238680 | 1.3360633 | 0.00000024065525 | [1.3351017, 1.3370248] | 251.860202ms | 13626005 |
-| 23984238696 | 1.3359638 | 0.00000024055674 | [1.3350025, 1.3369251] | 253.701233ms | 13626005 |
-| 23984238712 | 1.3364035 | 0.00000024078452 | [1.3354417, 1.3373653] | 250.7078ms | 13626005 |
-| 23984238728 | 1.337034 | 0.00000024076755 | [1.3360723, 1.3379956] | 250.421143ms | 13626005 |
-| 23984238744 | 1.3360319 | 0.0000002406933 | [1.3350704, 1.3369935] | 251.890569ms | 13626005 |
-| 23984238760 | 1.3362976 | 0.0000002407636 | [1.335336, 1.3372593] | 252.167587ms | 13626005 |
-| 23984238776 | 1.3364766 | 0.0000002405938 | [1.3355151, 1.337438] | 251.025332ms | 13626005 |
-| 23984238792 | 1.3360193 | 0.0000002406802 | [1.3350577, 1.3369808] | 255.078916ms | 13626005 |
-| 23984238808 | 1.3358076 | 0.0000002405703 | [1.3348463, 1.3367689] | 253.434424ms | 13626005 |
-
-Vemos que entre todas las estimaciones no existe diferencia mayot a 0.002 que representa la cota hacia la derecha + la cota hacia la izquierda. Estaría bueno conocer el valor analitico del volumen de la montaña para poder obtener mayores conclusiones.
+Vemos que ambas estimaciones son cercanas, se esperaba que la varianza en el nuevo metodo modificado sea menor, sin embargo ocurrio lo contrario. Ademas vemos como el tiempo empleado para calcular la estimacion se duplico. Consideramos que para un numero tan elevado de repeticiones no hace mucha diferencia este metodo, sin embargo para un numero menor de repeticiones puede ayudar el hecho de generar puntos dentro del circulo y ser una buena opcion.
 
 ### Ejecución
 el comando de ejecución para el binario compilado es:
 ```bash
-Usage: entrega3 [OPTIONS]
+Usage: entrega6 [OPTIONS]
 
 Options:
-  -r, --repeticiones <REPETICIONES>  cantidad de replicaciones 'n' a realizar [default: -1]
+  -r, --repeticiones <REPETICIONES>  cantidad de replicaciones 'n' a realizar [default: 1000000]
   -h, --help                         Print help
 ```
