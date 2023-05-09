@@ -13,9 +13,19 @@ Problema: se idealiza una montaña como un cono inscrito en una región cuadrada
 # IV. Descripción de la Solución
 
 ## Parte a)
-La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña. 
+La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña. Ademas de esto se modifico el algoritmo utilizado en el ejercicio 6.1 para generar unicamente puntos dentro del circulo de la montana.
 
-Ademas de esto se modifico el algoritmo utilizado en el ejercicio 6.1 para generar unicamente puntos dentro del circulo de la montana.
+Para generar un punto aleatorio (X1, X2) en un circulo de centro (0.5, 0.5) y
+radio 0.4, es posible hacerlo de la forma siguiente (derivacion disponible en
+las paginas 234 y 235 del libro de referencia del curso, “Monte Carlo:
+concepts, algorithms and applications”, Fishman 1996):
+
+* se genera un valor aleatorio r, de distribucion Fr(x) = x^2 para 0 ≤ x ≤ 1, y 0 para cualquier otro x;
+* se generan dos v.a. independientes Z1 y Z2 de distribucion normal (0, 1);
+* se calcula:
+  * X1 = r * Z1 * 0.4 / (Z1 ^ 2 + Z2 ^ 2) ^ 1/2 + 0.5
+  * X2 = r * Z2 * 0.4 / (Z1 ^ 2 + Z2 ^ 2) ^ 1/2 + 0.5
+
 
 ```rust
 // nueva funcion para generar puntos aleatorios dentro del circulo
