@@ -13,15 +13,15 @@ Problema: se idealiza una montaña como un cono inscrito en una región cuadrada
 # IV. Descripción de la Solución
 
 ## Parte a)
-La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña. Ademas de esto se modifico el algoritmo utilizado en el ejercicio 6.1 para generar unicamente puntos dentro del circulo de la montana.
+La forma de resolver esta parte fue tomando el problema cómo estimar el valor la integral en el sentido de Lebesgue mediante método de montecarlo, la función a integral es la dada para calcular la altura de un punto de la montaña. Además de esto se modificó el algoritmo utilizado en el ejercicio 6.1 para generar únicamente puntos dentro del círculo de la montaña.
 
-Para generar un punto aleatorio (X1, X2) en un circulo de centro (0.5, 0.5) y
-radio 0.4, es posible hacerlo de la forma siguiente (derivacion disponible en
-las paginas 234 y 235 del libro de referencia del curso, “Monte Carlo:
+Para generar un punto aleatorio (X1, X2) en un círculo de centro (0.5, 0.5) y
+radio 0.4, es posible hacerlo de la forma siguiente (derivación disponible en
+las páginas 234 y 235 del libro de referencia del curso, “Monte Carlo:
 concepts, algorithms and applications”, Fishman 1996):
 
-* se genera un valor aleatorio r, de distribucion Fr(x) = x^2 para 0 ≤ x ≤ 1, y 0 para cualquier otro x;
-* se generan dos v.a. independientes Z1 y Z2 de distribucion normal (0, 1);
+* se genera un valor aleatorio r, de distribución F(x) = x^2 para 0 ≤ x ≤ 1, y 0 para cualquier otro x;
+* se generan dos v.a. independientes Z1 y Z2 de distribución normal (0, 1);
 * se calcula:
   * X1 = r * Z1 * 0.4 / (Z1 ^ 2 + Z2 ^ 2) ^ 1/2 + 0.5
   * X2 = r * Z2 * 0.4 / (Z1 ^ 2 + Z2 ^ 2) ^ 1/2 + 0.5
@@ -101,7 +101,7 @@ Las pruebas fueron realizadas en una computadora con:
 | 6.1 | 24242 | 1.3385398 | 0.0000035470912 | [1.3348485, 1.3422312] | 32.021715ms |
 | 11.1 | 24242 | 1.3409284 | 0.0000035559813 | [1.3372325, 1.3446244] | 67.496965ms |
 
-Vemos que ambas estimaciones son cercanas, se esperaba que la varianza en el nuevo metodo modificado sea menor, sin embargo ocurrio lo contrario. Ademas vemos como el tiempo empleado para calcular la estimacion se duplico. Consideramos que para un numero tan elevado de repeticiones no hace mucha diferencia este metodo, sin embargo para un numero menor de repeticiones puede ayudar el hecho de generar puntos dentro del circulo y ser una buena opcion.
+Vemos que ambas estimaciones son cercanas, se esperaba que la varianza en el nuevo método modificado sea menor, sin embargo ocurrió lo contrario. Además vemos como el tiempo empleado para calcular la estimación se duplicó. Consideramos que para un número tan elevado de repeticiones no hace mucha diferencia este método, sin embargo para un número menor de repeticiones puede ayudar el hecho de generar puntos dentro del círculo y ser una buena opción.
 
 ### Ejecución
 el comando de ejecución para el binario compilado es:
