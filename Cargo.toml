@@ -5,6 +5,7 @@ members = [
     "entrega2",
     "entrega3",
     "entrega4",
+    "entrega6",
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
